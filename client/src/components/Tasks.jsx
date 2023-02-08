@@ -7,7 +7,7 @@ export function NewTask({ id }){
         id: id,
         title: '',
         description: '',
-        dueDate: currentDate,
+        date: currentDate,
         completed: false,
     })
 
@@ -15,11 +15,13 @@ export function NewTask({ id }){
         e.preventDefault()
         // console.log(task)
         if (!task.title) return // Titulo vacio (es obligatorio)
-        const res = fetch('', {
+        const res = await fetch('http://localhost:3000/api/new-task', {
             method: 'POST',
             body: JSON.stringify(task),
             headers: {'Content-Type': 'application/json'}
         })
+        const data = await res.json()
+        console.log(data)
     }
 
     const handleTyping = e => {
@@ -32,7 +34,7 @@ export function NewTask({ id }){
         <div className="container">
             <div className='d-flex justify-content-between py-2 '>
                 <input type="text" className="form-control" placeholder="Titulo *" maxLength="30" id="title" onChange={e => handleTyping(e)}/>
-                <input type="date" className="form-control mx-2" placeholder="Fecha" id="dueDate" min={currentDate} defaultValue={currentDate} onChange={e => handleTyping(e)}/>
+                <input type="date" className="form-control mx-2" placeholder="Fecha" id="date" min={currentDate} defaultValue={currentDate} onChange={e => handleTyping(e)}/>
                 <button type="button" className="btn btn-outline-success btn-sm" onClick={e => handleSubmit(e)}>Añadir tarea</button>
             </div>
             <div className="form-floating">
@@ -43,17 +45,18 @@ export function NewTask({ id }){
     )
 }
 
-export function Tasks({ user }){
+export function Tasks({ user, isCompleted }){
     const { task } = user // No se actualiza con la sesion iniciada
 
-    const UncompletedTask = ({ title, dueDate, description }) => {
+    const Task = ({ title, date, description }) => {
         return(
             <div className="card col">
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
-                    <span>Para: {dueDate}</span>
+                    <span>{date}</span>
                     <p className="card-text">{description}</p>
-                    <button type="button" className="btn btn-outline-primary">Completar</button>
+                    <button type="button" className="btn btn-outline-primary me-2">Completar</button>
+                    <button type="button" className="btn btn-outline-danger">Borrar</button>
                 </div>
             </div>  
         )    
@@ -62,13 +65,11 @@ export function Tasks({ user }){
     return(
         <div className="container row row-cols-2 m-0 mt-3">
             {
-            task.map(({_id, title, dueDate, description, completed}) => {
-                if (completed){
-                    return(       
-                        <UncompletedTask key={_id} title={title} dueDate={dueDate} description={description} />         
-                    )
-                }
-            })
+                task.map(({_id, title, date, description, completed}) => {
+                    if(!isCompleted){
+                        if (!completed) return <Task key={_id} title={title} date={'Para: ' + date} description={description} />           
+                    } else if (completed) return <Task key={_id} title={title} date={'Finalizado: ' + date} description={description} />   
+                })
             }
         </div>
     )
