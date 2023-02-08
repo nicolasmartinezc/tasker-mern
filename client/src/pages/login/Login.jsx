@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { checkToken } from '../../components/Auth'
+import { CheckToken } from '../../components/Auth'
 import { useNavigate, Link } from "react-router-dom"
 
 function Login(){
@@ -12,7 +12,7 @@ function Login(){
 
     useEffect(()=> {
         const redirectUser = async() => {
-            const token = await checkToken()
+            const token = await CheckToken()
             if (!token) navigate('/') 
             else navigate('/profile')
         }

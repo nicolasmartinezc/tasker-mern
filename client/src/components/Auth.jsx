@@ -1,4 +1,4 @@
-export async function checkToken (){
+export async function CheckToken (){
     const token = document.cookie.replace('token=', '')
     try{
         const res = await fetch('http://localhost:3000/api/verify-token', {
