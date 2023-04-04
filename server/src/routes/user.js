@@ -5,7 +5,11 @@ const express = require('express')
 const router = express.Router()
 require('dotenv').config()
 
-const TOKEN_KEY = process.env.TOKEN_KEY
+const TOKEN_KEY = "x4TvnErxRETbVcqaLl5dqMI115eNlp5y"
+
+router.post('/', (req, res) => {
+    res.send({ msg: "Hello World!" })
+})
 
 router.post('/register', (req, res) => {
     const { user, password } = req.body
