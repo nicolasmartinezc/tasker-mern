@@ -49,12 +49,12 @@ export const Tasks = ({ userId }) => {
     }, [])
     
     const finishTask = async(taskId) => {
-        await updateTask(userId, taskId) // Retorna true o false para saber si se realizo la peticion con exito
+        await updateTask(userId, taskId) // Retorna true o false para saber si se realizo la petición con éxito
         getUserTask()
     }
 
     const removeTask = async(taskId) => {
-        await deleteTask(userId, taskId) // Retorna true o false para saber si se realizo la peticion con exito
+        await deleteTask(userId, taskId) // Retorna true o false para saber si se realizo la petición con éxito
         getUserTask()
     }
 

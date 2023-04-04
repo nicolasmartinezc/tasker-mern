@@ -5,7 +5,7 @@ import { useState } from "react"
 function Login(){
     const navigate = useNavigate()
     const [ error, setError ] = useState('')
-    const [user, setuser] = useState({
+    const [user, setUser] = useState({
         user: '',
         password: ''
     })
@@ -14,7 +14,7 @@ function Login(){
         e.preventDefault()
         const { success, message } = await newSession(user)
         if (success){
-            navigate('/profile')
+            navigate('/tasker-mern/profile')
         } else{
             setError(message)
         }
@@ -23,7 +23,7 @@ function Login(){
     const handleTyping = e => {
         const newUser = { ...user }
         newUser[e.target.id] = e.target.value
-        setuser(newUser)
+        setUser(newUser)
     }
 
     return (
@@ -41,8 +41,8 @@ function Login(){
                     <p id="textError">{ error }</p>
                 </div>
                 <div>
-                    <button type="submit" className="btn btn-primary me-2">Iniciar sesion</button>
-                    <Link to='/register' className="btn btn-primary">Registrarse</Link>
+                    <button type="submit" className="btn btn-primary me-2">Iniciar sesión</button>
+                    <Link to='/tasker-mern/register' className="btn btn-primary">Registrarse</Link>
                 </div>
             </form>
         </div>

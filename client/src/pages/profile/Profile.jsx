@@ -14,7 +14,7 @@ function Profile(){
     const handleLogout = e => {
         e.preventDefault()
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-        navigate('/')
+        navigate('/tasker-mern')
     }
 
     const getData = async() => {

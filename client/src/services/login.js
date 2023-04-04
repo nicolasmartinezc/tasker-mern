@@ -1,6 +1,6 @@
 export const newSession = async( user ) => {
     try {
-        const res = await fetch('http://localhost:3000/api/login', {
+        const res = await fetch('https://tasker-server-0oxg.onrender.com/api/login', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {'Content-Type': 'application/json'}
@@ -15,7 +15,7 @@ export const newSession = async( user ) => {
         return data
     }
     catch (e) {
-        // Error de conexion a la API
-        throw new Error({success: false, message: "Ha ocurrido un error inesperado, por favor intentelo mas tarde"})
+        // Error de conexión a la API
+        throw new Error({success: false, message: "Ha ocurrido un error inesperado, por favor inténtelo mas tarde"})
     }
 }

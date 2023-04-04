@@ -13,7 +13,7 @@ export const ProtectedRouted = ({ children }) => {
             if (token === '') {
                 setIsAuthorized(false)
             } else{
-                const res = await fetch('http://localhost:3000/api/verify-token', {
+                const res = await fetch('https://tasker-server-0oxg.onrender.com/api/verify-token', {
                                     method: 'POST',
                                     headers: { 'authorization': token }
                                 })
@@ -30,29 +30,28 @@ export const ProtectedRouted = ({ children }) => {
     } 
     
     useEffect(()=> {
+        setIsAuthorized(false)
         loadingTrue()
         checkToken()
+        console.log('render');
     }, [children])
 
-    if (children[1].type.name === 'Profile') {
-        return (
-            isLoading?
-                <Loading />
-                :
-                isAuthorized?
+    if (!isLoading){
+        if (children[1].type.name === 'Profile') {
+            return (
+                isAuthorized ?
                     children
                     :
-                    <Navigate to='/'/>
-        )
+                    <Navigate to='/tasker-mern'/>
+            )
+        } else {
+            return (      
+                isAuthorized ?
+                    <Navigate to='/tasker-mern/profile'/>
+                    :
+                    children
+            )
+        }
     }
 
-    return (
-        isLoading?
-            <Loading />
-            :
-            isAuthorized?
-                <Navigate to='/profile'/>
-                :
-                children
-    )
 }

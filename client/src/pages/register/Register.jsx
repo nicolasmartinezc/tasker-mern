@@ -5,7 +5,7 @@ import { newAccount } from '../../services/register'
 function Register(){
     const navigate = useNavigate()
     const [ error, setError ] = useState('') 
-    const [ user, setuser ] = useState({
+    const [ user, setUser ] = useState({
         user: '',
         password: ''
     })
@@ -14,7 +14,7 @@ function Register(){
         e.preventDefault()
         const { success, message } = await newAccount(user)
         if (success) {
-            navigate('/')
+            navigate('/tasker-mern')
         }
         else{
             setError(message)  
@@ -24,7 +24,7 @@ function Register(){
     const handleTyping = e => {
         const newUser = { ...user }
         newUser[e.target.id] = e.target.value
-        setuser(newUser)
+        setUser(newUser)
     }
 
     return (
@@ -42,7 +42,7 @@ function Register(){
                     <p id="textError">{ error }</p>
                 </div>
                 <button type="submit" className="btn btn-primary me-2">Registrarse</button>
-                <Link to='/' className="btn btn-primary">Volver</Link>
+                <Link to='/tasker-mern' className="btn btn-primary">Volver</Link>
             </form>
         </div>
     )

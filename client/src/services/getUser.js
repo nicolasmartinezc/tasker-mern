@@ -1,7 +1,7 @@
 export const getUserId = async() => {
     const token = document.cookie.replace('token=', '')
     try{
-        const res = await fetch('http://localhost:3000/api/verify-token', {
+        const res = await fetch('https://tasker-server-0oxg.onrender.com/api/verify-token', {
                             method: 'POST',
                             headers: { 'authorization': token }
                         })
